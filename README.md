@@ -1,1 +1,1 @@
-# jmyrstudio.github.io
+# jmyrStudio

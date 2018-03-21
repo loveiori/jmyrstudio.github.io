@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>암호화폐에 관한 지대넓얕 - (1) 해시 알고리즘</title>
+    <meta name="description" content="개발자로서 암호화폐만큼 평가하기 힘든 기술이 있을까 싶습니다.">
+
+
+    <link rel="stylesheet" href="/jmyrStudio/css/main.css">
+    <link rel="stylesheet" href="/jmyrStudio/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/jmyrStudio/favicon.ico?1">
+    <!-- Begin Jekyll SEO tag v2.2.2 -->
+<title>암호화폐에 관한 지대넓얕 - (1) 해시 알고리즘 | jmyrStudio</title>
+<meta property="og:title" content="암호화폐에 관한 지대넓얕 - (1) 해시 알고리즘" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="개발자로서 암호화폐만큼 평가하기 힘든 기술이 있을까 싶습니다." />
+<meta property="og:description" content="개발자로서 암호화폐만큼 평가하기 힘든 기술이 있을까 싶습니다." />
+<link rel="canonical" href="http://localhost:4000/jmyrStudio/docs/2018-01-15-CC-1x01/" />
+<meta property="og:url" content="http://localhost:4000/jmyrStudio/docs/2018-01-15-CC-1x01/" />
+<meta property="og:site_name" content="jmyrStudio" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-01-15T00:00:00+00:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"WebPage","headline":"암호화폐에 관한 지대넓얕 - (1) 해시 알고리즘","datePublished":"2018-01-15T00:00:00+00:00","dateModified":"2018-01-15T00:00:00+00:00","description":"개발자로서 암호화폐만큼 평가하기 힘든 기술이 있을까 싶습니다.","url":"http://localhost:4000/jmyrStudio/docs/2018-01-15-CC-1x01/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <link rel="canonical" href="http://localhost:4000/jmyrStudio/docs/2018-01-15-CC-1x01/">
+    <link rel="alternate" type="application/rss+xml" title="jmyrStudio" href="http://localhost:4000/jmyrStudio/feed.xml" />
+
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Hind+Siliguri" rel="stylesheet">
+    <link rel="stylesheet" href="/jmyrStudio/css/util.css">
+    <script src="/jmyrStudio/js/util.js"></script>    
+</head>
+
+
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container navbar-container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/jmyrStudio/">
+                <span><img src="/jmyrStudio/img/logonav.png"></span><span class="font-hind-siliguri"> jmyrStudio</span>
+            </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li  class="active" ><a href="/jmyrStudio/docs/2017-12-01-DL-1x01/">Docs</a></li>
+                <li ><a href="/jmyrStudio/portfolio/recent/">Portfolio</a></li>                
+                <li ><a href="/jmyrStudio/blog/2017/12/10/welcome-to-jmyrstudio/">Blog</a></li>
+            </ul>
+            <div class="navbar-right">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group has-feedback">
+                        <input id="search-box" type="text" class="form-control" placeholder="Search...">
+                        <i class="fa fa-search form-control-feedback"></i>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav">
+                    <li><a target="_blank" href="https://github.com/aksakalli/jekyll-doc-theme"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/kyung-dong-lee-45ba5a121/">
+                            <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li><a href="mailto:lovejpark@gmail.com"><i class="fa fa-envelope-square" aria-hidden="true"></i></a></li>                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+    <div class="page-content">
+        <div class="wrapper">
+            <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+          <link rel="stylesheet" href="../../css/util.css">
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
+          Deep Learning&#58; Season Basic
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <ul class="list-group">
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x01/">Linear Regression</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x02/">Machine Learning Basics</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x03/">How to Minimize Cost</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x04/">Multi-Variable Linear Regression</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x05/">Logistic (Regression) Classification</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x06/">Softmax Classification&#58; Multinomial Classification</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x07/">Application & Tips&#58; Learning Rate, Data Preprocessing, Overfitting</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x08/">Deep Neural Nets for Everyone</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x09/">Neural Nets(NN) for XOR</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x10/">ReLU&#58; Better Non-Linearity</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x11/">CNN Introduction</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x12/">RNN</a>
+        
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+          Deep Learning&#58; Season RL
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <ul class="list-group">
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x01/">Reinforcement Learning Introduction</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x02/">Playing OpenAI GYM Games</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x03/">Q-Learning&#58; Introduction</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x04/">Q-Learning&#58; Exploit, Exploration and Discounted Future Reward</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x05/">Q-Learning&#58; Nondeterministic world</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x06/">Q-Network</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio"></a>
+        
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
+          Cryptocurrency
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <ul class="list-group">
+        
+          
+          
+          <a class="list-group-item active" href="/jmyrStudio/docs/2018-01-15-CC-1x01/">암호화폐에 관한 지대넓얕 - (1) 해시 알고리즘</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2018-02-15-CC-1x02/">암호화폐에 관한 지대넓얕 - (2) 머클 트리</a>
+        
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+        </div>
+
+        <div class="col-md-8">
+            <h3>암호화폐에 관한 지대넓얕 - (1) 해시 알고리즘</h3>
+            <div id="markdown-content-container"><p><br />
+개발자로서 암호화폐만큼 평가하기 힘든 기술이 있을까 싶습니다.</p>
+
+<p>POW, 일명 채굴이 지금 트렌드인 딥러닝과 관련되어 틈틈이 공부하다가 2018년 1월에야 코린이로 입문하여 처절한 손실을 맛보고 있는 중입니다.</p>
+
+<p>2010년에 비트코인을 접하고도 신박한 정도로만 생각했지 이 기술에 대한 적절한 가치와 가격을 몰라보고 주욱 관망만 하다가 수익 인증은 고사하고 결국 흑두루미가 되고 말았군요.</p>
+
+<p>자의가 아닌 강제적으로 Buy and Hold, 일명 John-Buh 전략을 지향하게 된 코린이로써 steemit의 수준 높은 글들을 읽으며 빤스런의 욕구를 참고 있습니다.</p>
+
+<p>저 또한 여러 고수님들께 많은 가르침을 받은 입장에서 이런 폭락장에서 혹여라도 이 글을 읽으며 조금이라도 재미있으신 분이 있다면 보람을 느낄 수 있겠지요.</p>
+
+<p><strong>오늘은 보안 이론 중에서 증명의 가장 기본단위인 해시(hash) 알고리즘에 대해 넓고 얕게 써보도록 하겠습니다.</strong></p>
+
+<p>http://www.whatsmyip.org/hash-generator/ 사이트로 가서 Input String 란에 “나는 흑두루미입니다.” 를 입력하고 Calculate Hashes 버튼을 클릭해보세요.</p>
+
+<p><img src="https://steemitimages.com/DQmPWdFLnDJfR2EPb8hBFAkFbN1kKjWddPYQTwrgSzM57bv/image.png?style=center" alt="" /></p>
+
+<p>빨간색 박스에 나열된 것들은 해시 알고리즘 종류이고 녹색 박스는 Input String 란에 입력한 문자열을 해시 함수로 돌려서 출력한 값입니다.
+비트코인에서 사용되는 해시 알고리즘인 sha256 하나만 살펴보죠.
+“나는 흑두루미입니다.” -&gt; sha256 -&gt; b95f6ac40aeeaf8e8a78df839d18f29e70b11ba9f5ee5966a007fa3215e3c684</p>
+
+<p>왠지 좀 유식해 보이도록 표현해보겠습니다. ㅎㅎ</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>sha256(나는 흑두루미입니다.) = b95f6ac40aeeaf8e8a78df839d18f29e70b11ba9f5ee5966a007fa3215e3c684
+</code></pre>
+</div>
+<p><br />
+이번엔 “나는 흑두루미입니다.”를 “나는 백두루미입니다.”라고 살짝 바꿔서 입력하고 Calculate Hashes 버튼을 클릭해보겠습니다.</p>
+
+<p>하단의 Hashes 항목들이 모두 바뀌는 것을 보실 수 있을겁니다.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>sha256(나는 흑두루미입니다.) = b95f6ac40aeeaf8e8a78df839d18f29e70b11ba9f5ee5966a007fa3215e3c684
+sha256(나는 백두루미입니다.) = f6e1b73aefa59bf190b1be5b6b8d9f853480a2c4d2530412253a0372191aa812
+</code></pre>
+</div>
+
+<p><strong>흑</strong>과 <strong>백</strong>, 한 글자 차이인데도 해시 값이 많이 달라졌습니다.</p>
+
+<p><strong>해시 함수는 입력 값이 약간만 바뀌어도 출력 값이 바뀌는 특징을 가지고 있습니다.
+또한 이론적으로 입력값으로 문자열을 입력하던, 커다란 바이너리 값을 입력하던 입력 값의 길이 제한이 없으나 출력 값의 길이는 항상 일정합니다.</strong></p>
+
+<p>이런 특징이 얼마나 유용하냐 하면</p>
+<ol>
+  <li>A가 2기가 바이트짜리 문서를 작성하고 이 파일을 해시한 값을 보관합니다.</li>
+  <li>A는 B에게 인터넷으로 문서 파일을 전송합니다.</li>
+  <li>인터넷으로 전송되는 중간에 해커는 A가 작성한 이 파일을 가로채서 데이터를 살짝 1바이트만 바꿔버린 후 B에게 보내줍니다. 아마도 이 해커는 2기가나 되는 문서에서 1바이트 정도만 살짝 바꿔도 누구도 알아채지 못할 것이라고 생각할겁니다.</li>
+  <li>A는 B와 따로 만나서 문서의 해시 값만 알려줍니다. sha256으로 해시한다면 32바이트(16진수 처리하면 64자)이므로 포스트잇에 써서 따로 전달해줄 수 있습니다.</li>
+  <li>B는 인터넷으로 전송받은 문서파일이 안전한지 검사하기 위해 문서 파일을 해시한 값과 A에게 따로 받은 포스트잇에 적힌 해시 값을 비교해봅니다. 해커가 중간에서 문서 파일의 1바이트만 살짝 바꾸었기 때문에 당연히 A가 작성한 원본 문서의 해시 값과 B가 인터넷으로 전송받은 문서의 해시 값은 다를 것이며, B는 누군가 이 문서의 값을 변조한 것을 알아차릴 수 있을 겁니다.</li>
+</ol>
+
+<p>위의 항목들에 개인키/공개키를 적용하면 전자서명을 통한 무결성을 증명하는 확인 절차를 구현할 수 있습니다만 일단 다음으로 미루고 해시 알고리즘의 특징인 <code class="highlighter-rouge">무결성의 증명</code> 을 설명하는 예문으로 이해해주시기 바랍니다.</p>
+
+<p>대용량 파일을 전송받을 때에도 마찬가지입니다.</p>
+
+<p><img src="https://steemitimages.com/0x0/https://steemitimages.com/DQmUeL7JpLYZE37RhES7JWgphvTxsUn8M2w57WAYThrHtw1/image.png?style=center" alt="" /></p>
+
+<p>몇 백 메가바이트가 넘는 유틸리티 파일을 다운받을 때 보면 저런식으로 해시 값(빨간색 박스)을 표시해주는 사이트들이 간혹 있습니다.</p>
+
+<p>인터넷으로 파일을 다운로드하다 보면 전송 오류로 파일의 손상이 되었거나 실행 파일의 경우 중간에 해커가 가로채서 백도어나 랜섬웨어를 심었을 수도 있습니다.</p>
+
+<p>그럼 뭘 믿고 제대로 다운로드했는지 알 수 있을까요?</p>
+
+<p>다운로드를 완료한 다음에 해시 유틸리티로 돌려서 사이트에서 표시하는 해시 값과 비교해보고 해시 값이 서로 동일하다면 사이트에 올려놓은 원본과 같으니 안심하고 사용하라는 의미입니다.<br />
+<br />
+shaX, x=1, 256, 384, 512…
+보통 해시 함수는 알고리즘 이름 뒤에 숫자가 붙는 식인데 이 숫자가 길수록 내부 상태와 블럭 크기가 증가해서 해시 값이 길어지게 됩니다.
+이렇게 길면 길수록 입력 값이 바뀌어도 출력되는 해시 값이 겹칠 가능성이 줄어들게 됩니다.</p>
+
+<p><img src="https://steemitimages.com/DQmWKU9J2v8YbMzUdeEkYciQNFuat3fEu134RnjvsYtpJur/image.png" alt="" /></p>
+
+<p>위 표의 가장 마지막 컬럼인 충돌 항목에서 해시 값이 상대적으로 짧은 SHA-0과 SHA-1은 입력 값이 다름에도 불구하고 출력되는 해시 값이 같게 출력되는 충돌의 경우가 보고되었지만 아직 sha256 이상의 해시 알고리즘에서는 충돌을 발견하지 못했습니다.</p>
+
+<p>따라서 이러한 해시 알고리즘을 열심히 테스트하시다가 충돌의 경우를 발견하시면 보안 관련 학술지에 이름을 남기실 수 있습니다.</p>
+
+<p>명예를 위한 채굴이라 생각하시고 한번 도전해보시는 것도… 그렇지만 발견 못해도, 인생의 좋은 경험이라고 생각하고 열심히 해야지 방법이 없습니다.<br />
+<br /></p>
+<h5 id="해시-함수는-출력되는-값을-통해서-입력-값을-알아낼-수-없는-단방향-함수입니다">해시 함수는 출력되는 값을 통해서 입력 값을 알아낼 수 없는 단방향 함수입니다.</h5>
+<div class="highlighter-rouge"><pre class="highlight"><code>입력 값 -&gt; 해시 함수 -&gt; 출력 값 (O)
+출력 값 -&gt; 해시 함수를 역연산 -&gt; 입력 값 (X)
+</code></pre>
+</div>
+<p>해시 함수는 압축 함수도 암/복호화 함수도 아닙니다. 오직 가변적인 입력 값을 받아서 정해진 길이의 값으로만 출력할 수 있습니다.</p>
+
+<p>상식적으로 생각해서 2기가 짜리 문서 파일을 해시해서 나온 값은 길어봤자 64바이트(16진수로 128자)인데, 이 값으로는 2기가 짜리 문서 파일을 복원할 수 있을까요? 할 수 있다면 기적의 압축 알고리즘이겠죠.</p>
+
+<p>예를 들어 웹사이트를 개발할 때 서비스 가입자의 로그인 암호는 해시 함수를 돌린 후 데이터베이스에 저장하도록 권장(이라 쓰고 강제라고 읽음)하게 되어있습니다.</p>
+
+<p>왜 이렇게 할 까요? 암호를 암호화시켜서 저장할 수도 있을텐데 말이죠.</p>
+
+<p>암호를 암호화하면 암호화할 때 사용했던 키로 복호화도 할 수 있습니다. 만약 해커가 이 암호를 암호화할 때 사용했던 키를 털면 데이터베이스에 저장된 사용자의 암호들도 다 복호화할 수 있게 되어 해당 사용자 계정들은 다 털려버립니다.</p>
+
+<p>사용자의 암호는 원래의 값을 절대로 알 수 없도록 저장되어야 합니다! 
+그럼 출력 값으로 입력 값을 추측할 수 없는 함수는? 해시 함수!</p>
+
+<p>사용자가 가입할 때 해시 함수를 사용해서 암호를 해시하여 데이터베이스에 저장하고, 로그인할 때 암호를 입력하면 이를 해시하고 데이터베이스에 저장된 해시 값과 비교하여 같으면 로그인을 허용합니다. 오오~~~ 그럴 듯 하지 않습니까?</p>
+
+<p>초창기 웹서비스들을 보면 사용자 암호를 잊어버렸을 때 인증 절차를 거치고 나면 이메일이나 SMS로 이전에 설정했던 암호를 알려주는 방식이었습니다.</p>
+
+<p>그런데 말입니다.</p>
+
+<p>이런식으로 사용자의 암호를 알려줄 수 있다면 적어도 사용자의 암호를 해시해서 데이터베이스에 저장하지 않았다는 증거로 볼 수 있으며 해킹으로 데이터베이스가 털리면 해당 사용자들의 계정은 자동문이 되겠죠.</p>
+
+<p>암호를 암호화한다고 해도 암호화할 때 사용했던 사용자 별로 암호화 키가 다른게 아니라 모두 같은 키로 암호화했다면 털리는 것은 시간문제라고 봐야죠.</p>
+
+<p>요즘 웹서비스들은 사용자 암호를 잊어버렸을 때 인증 절차를 거치고 나면 이메일이나 SMS로 사용자의 암호를 재설정하거나 임시 암호를 발급해서 알려주는 방식입니다.</p>
+
+<p>데이터베이스에 사용자의 암호를 해시해서 보관하고 있으므로 단방향 함수인 해시 함수의 특징 상 원래의 암호를 복원하는 것이 불가능하기 때문에 아예 재설정해버리는 겁니다.</p>
+
+<p>다음번에는 이러한 해시 함수의 특징을 활용하여 어떤식으로 비트코인에 사용되는 nonce 값과 결합해서 블럭을 생성하는지(라고 읽고 채굴이라고 씀) 살펴보려 합니다. 많은 응원 부탁드리며 시간이 널널하면 아래와 같은 글들을 써보려고 합니다.</p>
+<ul>
+  <li>머클 트리</li>
+  <li>비트 코인, POW의 해답인 Nonce? (예정)</li>
+  <li>암호 알고리즘, 공인 인증서 그리고 전자 서명 (예정)</li>
+  <li>왜 POW, 채굴에는 GPU를 사용하는가? (예정)</li>
+</ul>
+
+<p><br /><br />
+시간이 널널한데, 이더리움과 리플 둘 다 떡상하면 !!!</p>
+<ul>
+  <li>암호화폐에 관한 지대넓깊(?) - 채굴 프로그램 개발에 도전해보자.</li>
+  <li>암호화폐에 관한 지대넓깊(?) - POW를 적용한 짭 트론을 만들어보자.</li>
+</ul>
+
+<p><br />
+감사합니다.</p>
+
+</div>
+            <p class="text-center">
+              <br />
+              <a target="_blank" href="https://github.com/aksakalli/jekyll-doc-theme/blob/gh-pages/_docs/crypto-currency/2018-01-15-CC-1x01.md" class="btn btn-default githubEditButton" role="button">
+                <i class="fa fa-pencil fa-lg"></i> Improve this page
+              </a>
+            </p>
+            <hr>
+            
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <ul class="pager">
+      
+        
+        
+        <li class="previous">
+          <a href="/jmyrStudio/docs/2017-12-01-DL-2x07/">
+            <span aria-hidden="true">&larr;</span> Previous
+          </a>
+        </li>
+      
+
+      
+        
+        
+        <li class="next">
+          <a href="/jmyrStudio/docs/2018-02-15-CC-1x02/">
+            Next <span aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      
+    </div>
+    <div class="clear"></div>
+    
+
+        </div>
+
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="container">
+
+        <p class="text-center" style="font-size: 18 !important;">
+            jmyrStudio 2018
+        </p>
+        <!-- <p class="text-muted">Place sticky footer content here.</p> -->
+    </div>
+</footer>
+
+    <script>
+  var baseurl = '/jmyrStudio'
+</script>
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="/jmyrStudio/js/bootstrap.min.js "></script>
+<script src="/jmyrStudio/js/typeahead.bundle.min.js "></script>
+
+<script src="/jmyrStudio/js/main.js "></script>
+
+</body>
+
+</html>

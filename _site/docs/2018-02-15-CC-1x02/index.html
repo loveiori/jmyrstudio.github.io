@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>암호화폐에 관한 지대넓얕 - (2) 머클 트리</title>
+    <meta name="description" content="안녕하세요. 암호화폐 관한 지적 대화를 위한 넓고 얇은 지식 시리즈를 연재하고 있는 흑두루미 개발자입니다.">
+
+
+    <link rel="stylesheet" href="/jmyrStudio/css/main.css">
+    <link rel="stylesheet" href="/jmyrStudio/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/jmyrStudio/favicon.ico?1">
+    <!-- Begin Jekyll SEO tag v2.2.2 -->
+<title>암호화폐에 관한 지대넓얕 - (2) 머클 트리 | jmyrStudio</title>
+<meta property="og:title" content="암호화폐에 관한 지대넓얕 - (2) 머클 트리" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="안녕하세요. 암호화폐 관한 지적 대화를 위한 넓고 얇은 지식 시리즈를 연재하고 있는 흑두루미 개발자입니다." />
+<meta property="og:description" content="안녕하세요. 암호화폐 관한 지적 대화를 위한 넓고 얇은 지식 시리즈를 연재하고 있는 흑두루미 개발자입니다." />
+<link rel="canonical" href="http://localhost:4000/jmyrStudio/docs/2018-02-15-CC-1x02/" />
+<meta property="og:url" content="http://localhost:4000/jmyrStudio/docs/2018-02-15-CC-1x02/" />
+<meta property="og:site_name" content="jmyrStudio" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-02-15T00:00:00+00:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"WebPage","headline":"암호화폐에 관한 지대넓얕 - (2) 머클 트리","datePublished":"2018-02-15T00:00:00+00:00","dateModified":"2018-02-15T00:00:00+00:00","description":"안녕하세요. 암호화폐 관한 지적 대화를 위한 넓고 얇은 지식 시리즈를 연재하고 있는 흑두루미 개발자입니다.","url":"http://localhost:4000/jmyrStudio/docs/2018-02-15-CC-1x02/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <link rel="canonical" href="http://localhost:4000/jmyrStudio/docs/2018-02-15-CC-1x02/">
+    <link rel="alternate" type="application/rss+xml" title="jmyrStudio" href="http://localhost:4000/jmyrStudio/feed.xml" />
+
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Hind+Siliguri" rel="stylesheet">
+    <link rel="stylesheet" href="/jmyrStudio/css/util.css">
+    <script src="/jmyrStudio/js/util.js"></script>    
+</head>
+
+
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container navbar-container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/jmyrStudio/">
+                <span><img src="/jmyrStudio/img/logonav.png"></span><span class="font-hind-siliguri"> jmyrStudio</span>
+            </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li  class="active" ><a href="/jmyrStudio/docs/2017-12-01-DL-1x01/">Docs</a></li>
+                <li ><a href="/jmyrStudio/portfolio/recent/">Portfolio</a></li>                
+                <li ><a href="/jmyrStudio/blog/2017/12/10/welcome-to-jmyrstudio/">Blog</a></li>
+            </ul>
+            <div class="navbar-right">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group has-feedback">
+                        <input id="search-box" type="text" class="form-control" placeholder="Search...">
+                        <i class="fa fa-search form-control-feedback"></i>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav">
+                    <li><a target="_blank" href="https://github.com/aksakalli/jekyll-doc-theme"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/kyung-dong-lee-45ba5a121/">
+                            <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li><a href="mailto:lovejpark@gmail.com"><i class="fa fa-envelope-square" aria-hidden="true"></i></a></li>                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+    <div class="page-content">
+        <div class="wrapper">
+            <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+          <link rel="stylesheet" href="../../css/util.css">
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
+          Deep Learning&#58; Season Basic
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <ul class="list-group">
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x01/">Linear Regression</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x02/">Machine Learning Basics</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x03/">How to Minimize Cost</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x04/">Multi-Variable Linear Regression</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x05/">Logistic (Regression) Classification</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x06/">Softmax Classification&#58; Multinomial Classification</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x07/">Application & Tips&#58; Learning Rate, Data Preprocessing, Overfitting</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x08/">Deep Neural Nets for Everyone</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x09/">Neural Nets(NN) for XOR</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x10/">ReLU&#58; Better Non-Linearity</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x11/">CNN Introduction</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-1x12/">RNN</a>
+        
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+          Deep Learning&#58; Season RL
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <ul class="list-group">
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x01/">Reinforcement Learning Introduction</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x02/">Playing OpenAI GYM Games</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x03/">Q-Learning&#58; Introduction</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x04/">Q-Learning&#58; Exploit, Exploration and Discounted Future Reward</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x05/">Q-Learning&#58; Nondeterministic world</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2017-12-01-DL-2x06/">Q-Network</a>
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio"></a>
+        
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
+          Cryptocurrency
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <ul class="list-group">
+        
+          
+          
+          <a class="list-group-item " href="/jmyrStudio/docs/2018-01-15-CC-1x01/">암호화폐에 관한 지대넓얕 - (1) 해시 알고리즘</a>
+        
+          
+          
+          <a class="list-group-item active" href="/jmyrStudio/docs/2018-02-15-CC-1x02/">암호화폐에 관한 지대넓얕 - (2) 머클 트리</a>
+        
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+        </div>
+
+        <div class="col-md-8">
+            <h3>암호화폐에 관한 지대넓얕 - (2) 머클 트리</h3>
+            <div id="markdown-content-container"><p><br />
+안녕하세요. 암호화폐 관한 지적 대화를 위한 넓고 얇은 지식 시리즈를 연재하고 있는 흑두루미 개발자입니다.</p>
+
+<ol>
+  <li><a href="http://localhost:4000/jmyrStudio/docs/2018-01-15-CC-1x01/">해시 알고리즘</a></li>
+  <li><strong>머클 트리 (본편)</strong></li>
+  <li>비트 코인, POW의 해답인 Nonce? (예정)</li>
+  <li>암호 알고리즘, 공인 인증서 그리고 전자 서명 (예정)</li>
+  <li>왜 POW, 채굴에는 GPU를 사용하는가? (예정)
+<br /><br /></li>
+</ol>
+
+<p>이번에 다룰 주제는 해시 알고리즘 응용의 결정체인 머클 트리(Merkle Tree)입니다.<br />
+비트코인에서 머클 트리는 한 블럭 안의 모든 거래를 하나의 해시값으로 요약할 수 있게 해주며, 최근 이더리움의 비탈릭 부테린과 EOS의 댄 라리머의 논쟁에서도 등장합니다. 비탈릭은 EOS의 처리속도가 빠른 이유가 중요 프로토콜의 구현을 빠뜨렸기 때문이며, 그 중 대표적으로 빠뜨린 것이 <code class="highlighter-rouge">머클 트리</code>라고 댄을 디스하기도 했었습니다.<br /></p>
+
+<blockquote>
+  <p>머클 트리는 가장 말단을 제외한 노드(non-leaf node)들이 자식 노드의 정보를 해시한 값으로 이루어진 이진 트리(Binary Tree)이며, 발명자 랄프 머클(Ralph Merkle)이 1979년에 특허 출원했다고 합니다.</p>
+</blockquote>
+
+<p>위키 백과에서 발췌한 머클 트리의 정의입니다.<br />
+랄프 머클은 발명자 이름이고, 해시라는 용어는 지난 강좌인 <a href="http://localhost:4000/jmyrStudio/docs/2018-01-15-CC-1x01/">해시 알고리즘</a> 편에서 언급했으니 <code class="highlighter-rouge">이진 트리</code>라는 용어를 이해하고 넘어가야겠군요.<br />
+<br />
+트리(tree)는 노드(node)라고 부르는 공간에 데이터를 저장하며 이름 그대로 나무의 구조를 본따 만들어서 뿌리(Root Node), 마디(Internal Node) 그리고 잎(Leaf Node)으로 이루어져 있습니다.<br /></p>
+
+<p><img src="https://steemitimages.com/DQme8NXncvdH3NQZqUjvY1JavZ7XGraziiqHcFc8SBpRgvU/tree-definition.png?style=center" alt="" />
+<br />
+<br />
+그런데 나무는 아래에서 위로 자라지 않나요? 지구는 둥그니까 이렇게 아래로도 자랄 수 있나 봅니다.<br /></p>
+
+<p><img src="https://steemitimages.com/DQmUqMYxqv3RTfE8g6YFSM6uKMrMie3wrD3wxhwwXH1k5GH/reversed-tree.png?style=center" alt="" /></p>
+
+<p><br />
+그럼 트리는 트리인데, 이진 트리(Binary Tree)라는 것은 무엇일까요?<br />
+0 그리고 1, 2개의 기호만 사용하는 이진법(binary)처럼 모든 노드가 자식 노드를 2개만 가질 수 있는 트리를 이진 트리라고 합니다. 왜 자식 노드를 2개만 가지냐 하면 말이죠.</p>
+
+<p><img src="https://steemitimages.com/DQmdZ9xC8Gvsfor6C79s4gjX1fCop8xqk3oiRZHsCrPSnWB/image.png?style=center" alt="" /></p>
+
+<p>14라는 값을 검색하려면 root(10)에서 시작하여</p>
+<ol>
+  <li>10보다 14가 크기 때문에 오른쪽 node인 17을 선택합니다.</li>
+  <li>17보다 14가 작기 때문에 왼쪽 node인 14를 선택합니다.</li>
+  <li>선택한 14는 검색하려는 14와 같은 값이므로 검색을 완료합니다.</li>
+</ol>
+
+<p>이 이진 트리는 검색 시간을 단축하기 위하여 노드의 값들을 크기 순으로 미리 수평 정렬한 이진 탐색 트리(Binary Search Tree)입니다.
+값이 1, 5, 6, 21인 노드들을 배제하고 검색하여 시간을 단축할 수 있으며 이러한 원리는 데이터베이스에서 검색을 최적화하는 인덱싱에 활용되기도 합니다.<br />
+<br />
+<br />
+드디어 본론인 머클 트리가 등장합니다.</p>
+
+<p><img src="https://steemitimages.com/DQmZnp9xm5or8hZPuhgMLFkNXZk7EZGKk6yM2Lrg9EtgiyQ/merkle-tree.png" alt="" /></p>
+
+<p>최하단에 위치한 거래 노드(Transaction: Tx0, Tx1, Tx2, Tx3)들을 제외한 모든 노드들이 해시 값을 가지고 있고 또 자식 노드들을 2개씩 가지고 있어서 이진 트리 형식을 만족합니다.<br /></p>
+
+<p>비트 코인에서 한 블럭 안의 모든 거래는 머클 루트라는 하나의 값으로 요약됩니다.
+이 머클 루트 값을 구하려면 위 머클 트리에 표시한 Step 1, Step 2, Step 3 순으로 차례대로 해시하면 됩니다. 백문이 불여일타라고 직접 따라해 보시면 이해에 도움이 될겁니다.<br />
+<br /></p>
+<h5 id="step-1">Step 1.</h5>
+<p>앞선 그림에서 거래 노드 중 하나인 Tx0은 철수가 영희에게 1비트 코인을 전송했다는 의미로 “From:철수,To:영희,BTC:1” 라고 표현했습니다.<br />
+이러한 거래 내용은 비트 코인에서 스크립트 형식을 사용하는데, 실제로는 이것보다 더 복잡합니다만 쉬운 예를 들기 위해 간략한 형식으로 표현했습니다.<br /> 실제 비트 코인에서 사용하는 스크립트를 알아보시려면 https://en.bitcoin.it/wiki/Script 을 참고하세요.<br /></p>
+
+<p>http://www.whatsmyip.org/hash-generator/ 사이트로 가서 Input String란에  “From:철수,To:영희,BTC:1” 를 입력하고 Calculate Hashes 버튼을 클릭하면 아래처럼 해시 값들이 출력됩니다. 이왕이면 비트 코인에서 사용되는 sha256 해시 알고리즘으로 진행해보겠습니다.</p>
+
+<p><img src="https://steemitimages.com/DQmXtxVQveNed9sy1ySs7y3YGzkbUg2aY8gg33fhf6vtXkr/hash-gen.jpeg" alt="" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>H0 노드 = sha256(From:철수,To:영희,BTC:1) = e7857935216b41146f9fbabd1a160d3f1bc72df953af73648c4dacd70ac2bc10
+</code></pre>
+</div>
+<p><br />
+같은 방식으로 나머지 Tx1, Tx2, Tx3 노드들도 해시합니다.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>H1 노드 = sha256(From:수빈,To:민준,BTC:0.5) = 8806b9cb998d8c4af11eab07edccc4c57b9707d31b5aed8e58fca1dacc4286fc
+H2 노드 =  sha256(From:서현,To:민준,BTC:0.5) = d3a225ad5e015148d258b1c274b88b219d078640e9a378647020d2ecb066894a
+H3 노드 = sha256(From:영희,To:민준,BTC:1) = 28d2473120a1416808573526f366526d834a39633ff90905bd9570e015638d07
+</code></pre>
+</div>
+<p><br />
+<br /></p>
+<h5 id="step-2">Step 2.</h5>
+<p>이제 H01 노드와 H23 노드에 들어갈 해시 값을 구해보겠습니다. 
+H01 노드의 자식 노드는 H0 노드와 H1 노드이므로, H0 노드의 값과 H1노드의 값을 합쳐서 해시하면</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>H01 노드 =  sha256(e7857935216b41146f9fbabd1a160d3f1bc72df953af73648c4dacd70ac2bc108806b9cb998d8c4af11eab07edccc4c57b9707d31b5aed8e58fca1dacc4286fc) = 920ff9d5d117f524a8cae4e946dff5da453af5a7bb4f626765814e06a308aec6
+</code></pre>
+</div>
+<p><br />
+마찬가지로 H23 노드의 자식 노드는 H2 노드와 H3 노드이므로</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>H23 노드 = sha256(d3a225ad5e015148d258b1c274b88b219d078640e9a378647020d2ecb066894a28d2473120a1416808573526f366526d834a39633ff90905bd9570e015638d07) = b1092378e647e31bf2798600b293199bb0079c7c638435d1beacde341a2caeac
+</code></pre>
+</div>
+<p><br /></p>
+<h5 id="step-3">Step 3.</h5>
+<p>이제 머클 루트 노드만 남았습니다. 루트 노드의 자식 노드는 H01 노드와 H23 노드이므로</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>머클 루트 = sha256(920ff9d5d117f524a8cae4e946dff5da453af5a7bb4f626765814e06a308aec6b1092378e647e31bf2798600b293199bb0079c7c638435d1beacde341a2caeac) = 4d412dc62c412e9ad3c2d378ddbccf52bbc6438bde2782a2b3702f48b639cf54
+</code></pre>
+</div>
+<p><br />
+지난 강좌인 <a href="http://localhost:4000/jmyrStudio/docs/2018-01-15-CC-1x01/">해시 알고리즘</a> 편에서 언급했듯이 <strong>해시 알고리즘은 입력 값의 길이에 상관 없이 출력 값의 길이는 항상 일정합니다.</strong> 따라서 최하단의 거래 노드들을 제외한 모든 노드들이 가지는 해시 값 길이는 64문자(16진수)로 모두 같습니다. 수고하셨습니다.<br />
+<br />
+이렇게 구한 머클 루트 값은 아래 비트코인 블럭의 블럭 헤더(Block Header)에 빨간 박스로 표시한 Root Hash(Merkle Root) 영역에 저장됩니다.<br /></p>
+
+<p><img src="https://steemitimages.com/DQmXtFMMdjG4ghJNMQJecbzMwAujGwZ7iLBQWLRf464oiLM/bitcoin-1block.png?style=center" alt="" />
+(이 구조는 다음 강좌인 “비트 코인, POW의 해답인 Nonce?” 편에 자세히 다룰 예정입니다)<br />
+<br />
+<code class="highlighter-rouge">루트 해시 값 하나로 한 블럭의 모든 거래들의 위변조를 검증할 수 있습니다. 최하단의 거래 노드 중 하나만 변조되어도 트리 구조의 특성상 루트 해시 값은 바뀔 수 밖에 없기 때문입니다.</code><br />
+<br />
+그리고 이렇게 완성된 하나의 블럭은 다른 블럭과 연결됩니다. 다들 아시다시피 이 구조를 블록체인(Blockchain)이라고 부릅니다.<br /></p>
+
+<p><img src="https://steemitimages.com/DQmcttMXLCGS6RNY5fGXYZtGMBe91LwmCUyJCHk5Uqpbdp4/image.png?style=center" alt="" /></p>
+<center>출처: https://bitcoin.org/bitcoin.pdf</center>
+<p><br />
+<br /></p>
+<h5 id="다음-편-예고">다음 편 예고</h5>
+
+<p>거래 장부들에 따르면, 철수는 영희에게 소중한 1비트 코인을 선물로 전송했고, 수빈과 서현은 민준에게 0.5비트씩 모두 1비트 코인을 전송했습니다. 그리고 영희는 철수에게 받은 1비트 코인을 민준에게 선물로 전송했습니다.<br />
+이 사실을 알고 분노한 우리의 흑우 철수는 능력자 민준에게 복수를 다짐하며 거래 장부 Tx0을 “From:민준,To:철수,BTC:2”로 조작하여 민준이 받은 2비트 코인을 모두 자신에게 전송할 계획을 세웠습니다.<br /></p>
+
+<p>이번 편에서 머클 트리를 학습한 철수는 Tx0 거래 노드에 연결된 모든 노드들(H0, H01, 머클 루트)의 해시 값을 모두 해킹하여 바꾸려고 할 것입니다.<br /></p>
+
+<p>과연 철수의 복수는 이루어질 것인지 아니면 다음에 연재할 “비트 코인, POW의 해답인 Nonce?” 편에서 블록체인의 실체를 마주하고 목이 돌아갈까요? To be continued…<br />
+<br />
+본글의 저작권은 저자에게 있으며, 저자의 허가없는 사용 및 도용을 금지하니 양해 바랍니다. 긴 글 읽어주셔서 감사합니다.</p>
+
+</div>
+            <p class="text-center">
+              <br />
+              <a target="_blank" href="https://github.com/aksakalli/jekyll-doc-theme/blob/gh-pages/_docs/crypto-currency/2018-02-15-CC-1x02.md" class="btn btn-default githubEditButton" role="button">
+                <i class="fa fa-pencil fa-lg"></i> Improve this page
+              </a>
+            </p>
+            <hr>
+            
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <ul class="pager">
+      
+        
+        
+        <li class="previous">
+          <a href="/jmyrStudio/docs/2018-01-15-CC-1x01/">
+            <span aria-hidden="true">&larr;</span> Previous
+          </a>
+        </li>
+      
+
+      
+        <li class="next disabled">
+          <a>
+            Next <span aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      
+    </div>
+    <div class="clear"></div>
+    
+
+        </div>
+
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="container">
+
+        <p class="text-center" style="font-size: 18 !important;">
+            jmyrStudio 2018
+        </p>
+        <!-- <p class="text-muted">Place sticky footer content here.</p> -->
+    </div>
+</footer>
+
+    <script>
+  var baseurl = '/jmyrStudio'
+</script>
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="/jmyrStudio/js/bootstrap.min.js "></script>
+<script src="/jmyrStudio/js/typeahead.bundle.min.js "></script>
+
+<script src="/jmyrStudio/js/main.js "></script>
+
+</body>
+
+</html>
