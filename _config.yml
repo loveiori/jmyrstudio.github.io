@@ -1,15 +1,15 @@
 # Site settings
 title: jmyrStudio
-email: lovejpark@gmail.com
+email: jmyrstudio@gmail.com
 linkedin: https://www.linkedin.com/in/kyung-dong-lee-45ba5a121/
 description: >
-  Jekyll Template for Project Websites
-  providing documentation and blog post pages.
+  jmyrStudio developer blog site
+  providing programming documentation, personal portfolio, profile and blog post pages.
 
-baseurl: "/jmyrStudio" # the subpath of your site, e.g. /blog/
-url: https://aksakalli.github.io/jekyll-doc-theme # the base hostname & protocol for your site
-git_address: https://github.com/aksakalli/jekyll-doc-theme
-git_edit_address: https://github.com/aksakalli/jekyll-doc-theme/blob/gh-pages
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: https://jmyrstudio.github.io # the base hostname & protocol for your site
+git_address: https://github.com/jmyrStudio/jmyrstudio.github.io
+git_edit_address:
 
 # theme options from https://bootswatch.com/
 # comment out this to use default Bootstrap
