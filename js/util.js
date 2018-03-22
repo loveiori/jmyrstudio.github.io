@@ -14,6 +14,6 @@ var embedPDF = function(pdf) {
 	document.write('var options = { pdfOpenParams: { toolbar: \'1\', navpanes: \'1\' } };');
 	document.write('var loadPDF = PDFObject.embed("'+url+'", "#'+id+'", options);');
 	//document.write('if (!loadPDF) alert("PLEASE ALLOW YOUR BROWSER TO LOAD UNSAFE SCRIPTS IF YOU CANNOT SEE A PDF DOCUMENT.");');
-	document.write('alert(loadPDF)');
+	document.write('alert(loadPDF.outerHTML)');
 	document.write('</script>');
 };
