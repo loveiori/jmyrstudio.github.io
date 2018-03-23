@@ -22,6 +22,7 @@ layout: default
             <p>{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
             <div  id="markdown-content-container">{{ content }}</div>
             <hr>
+            {% include disqus_comments.html %}
             <ul class="pager">
                 {% if page.previous %}
                 <li class="previous">
