@@ -7,13 +7,12 @@ var embedPDF = function(pdf) {
 
 	document.write('<style>.pdfobject-container { width: '+width+'; height: '+height+' }</style>');
 	document.write('<div style="margin-bottom: 88px" id="'+id+'">');
-	//document.write('<p>PLEASE ALLOW YOUR BROWSER TO LOAD UNSAFE SCRIPTS IF YOU CANNOT SEE A PDF DOCUMENT.</p>');	
+	//document.write('<p>PLEASE ALLOW YOUR BROWSER TO LOAD UNSAFE SCRIPTS IF YOU CANNOT SEE A PDF DOCUMENT.</p>');
 	document.write('</div>');
 	document.write('<script src="../../js/pdfobject.min.js"></script>');
 	document.write('<script>');
-	document.write('var options = { pdfOpenParams: { toolbar: \'1\', navpanes: \'1\' } };');
+	document.write('var options = { pdfOpenParams: { toolbar: \'1\', navpanes: \'1\' }, fallbackLink: \'FUCK\' };');
 	document.write('var loadPDF = PDFObject.embed("'+url+'", "#'+id+'", options);');
 	//document.write('if (!loadPDF) alert("PLEASE ALLOW YOUR BROWSER TO LOAD UNSAFE SCRIPTS IF YOU CANNOT SEE A PDF DOCUMENT.");');
-	document.write('alert(loadPDF.outerHTML)');
 	document.write('</script>');
 };
