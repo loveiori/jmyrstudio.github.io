@@ -2,7 +2,7 @@ var embedPDF = function(pdf) {
 	var url = pdf.url;
 	var id = (pdf.id === undefined ? 0 : pdf.id);
 	var width = (pdf.width === undefined ? '100%' : pdf.width);
-	var height = (pdf.height === undefined ? '494px' : pdf.height);
+	var height = (pdf.height === undefined ? '588px' : pdf.height);
 	id = 'embeded-pdf-container' + id;
 
 	document.write('<style>.pdfobject-container { width: '+width+'; height: '+height+' }</style>');
