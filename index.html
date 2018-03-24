@@ -89,6 +89,14 @@ layout: default
 
     <div class="row">
         <div class="col-sm-4">
+            <h1 class="text-center"><i class="fa fa-github" aria-hidden="true"></i></h1>
+            <h3 class="text-center">Open Sources</h3>
+            <ul>
+              <li><a href="#">IoT-mobile-framework</a> peer-to-peer SIP Frameworks to develop an mobile application to control IoT devices.</li><br/>
+              <li><a href="#">RTSP-video-decoder</a> shows how to develop an RTSP streaming video application using NVIDIA Video Codec SDK on Windows and Linux</li>
+            </ul>
+        </div>
+        <div class="col-sm-4">
             <h1 class="text-center"><i class="fa fa-cube" aria-hidden="true"></i></h1>
             <h3 class="text-center">Recent Docs</h3>
             <p>{{ site.docs.sections.size }}</p>
@@ -97,14 +105,6 @@ layout: default
               {% for item in items limit:10 %}
               <li><a href="{{ item.url | prepend: site.baseurl }}">{{ item.title }}</a></li>
               {% endfor %}
-            </ul>
-        </div>
-        <div class="col-sm-4">
-            <h1 class="text-center"><i class="fa fa-github" aria-hidden="true"></i></h1>
-            <h3 class="text-center">My Open Sources</h3>
-            <ul>
-              <li><a href="#">IoT-mobile-framework</a> peer-to-peer SIP Frameworks to develop an mobile application to control IoT devices.</li><br/>
-              <li><a href="#">RTSP-video-decoder</a> shows how to develop an RTSP streaming video application using NVIDIA Video Codec SDK on Windows and Linux</li>
             </ul>
         </div>
         <div class="col-sm-4">

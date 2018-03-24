@@ -3,8 +3,7 @@ title: DreamToReality Inc (Nov 2004 - Jul 2015)
 permalink: /portfolio/d2r/
 ---
 
-<link rel="stylesheet" href="../../css/util.css">
-
+<br/>
 **Designed and implemented below services as a `Chief Software Developer` at R&D Department.**
 
 * KT Biz Smart Message Service

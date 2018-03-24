@@ -3,6 +3,7 @@ title: Freelancer (Aug 2015 - Now)
 permalink: /portfolio/recent/
 ---
 
+<br/>
 ##### Artificial Intelligence for Video Surveillance System <sub><sup>Korea Ministry of the Interior and Safety</sup></sub>
 **Implemented components according to guildelines by a government project to analyze the images from Video Management System and recognize objects and events using Deep Learning.**
 

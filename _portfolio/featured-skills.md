@@ -2,8 +2,9 @@
 title: Featured Skills
 permalink: /portfolio/featured-skills/
 ---
+
 <br/>
-### (1) Native Development
+#### (1) Native Development
 
 | Skills               | Details (C, C++)                                                 |
 | -------------------- | ---------------------------------------------------------------- |
@@ -13,7 +14,7 @@ permalink: /portfolio/featured-skills/
 
 <br/>
 
-### (2) Web Development
+#### (2) Web Development
 
 | Skills               | Details (Java, C++, SQL, HTML5, JavaScript)                                                                            |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -22,7 +23,7 @@ permalink: /portfolio/featured-skills/
 
 <br/>
 
-### (3) Mobile Development
+#### (3) Mobile Development
 
 | Skills               | Details (Objective-C, C++, Swift, Java)                                                  |
 | -------------------- | ---------------------------------------------------------------------------------------- |
@@ -31,7 +32,7 @@ permalink: /portfolio/featured-skills/
 
 <br/>
 
-### (4) ETC
+#### (4) ETC
 
 | Skills               | Details                                                                                                               |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------- |

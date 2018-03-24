@@ -23,6 +23,10 @@
   - 2017-12-01-DL-2x06
   - 2017-12-01-DL-2x07
 
+- title: NVIDIA ComputeWorks
+  docs:
+  - 2018-03-01-deepstream-sdk
+
 - title: Cryptocurrency
   docs:
   - 2018-01-15-CC-1x01

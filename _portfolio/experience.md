@@ -3,6 +3,9 @@ title: Experience
 permalink: /portfolio/experience/
 ---
 
+<br/>
+#### Career
+
 | Company                                                              | Details                                                |
 | -------------------------------------------------------------------- | ------------------------------------------------------ |
 | Freelancer (Vietnam) | Aug 2015 - Now, Full-Stack Software Developer |
@@ -11,7 +14,7 @@ permalink: /portfolio/experience/
 
 <br/>
 
-## Education
+#### Education
 
 | School                                                               | Details                                                |
 | -------------------------------------------------------------------- | ------------------------------------------------------ |
