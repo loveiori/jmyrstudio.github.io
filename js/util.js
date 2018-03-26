@@ -11,7 +11,6 @@ var embedPDF = function(pdf) {
 	document.write('<script src="../../js/pdfobject.min.js"></script>');
 	document.write('<script>');
 	document.write('var options = { pdfOpenParams: { toolbar: \'1\', navpanes: \'1\' } };');
-	document.write('var embed = PDFObject.embed("'+url+'", "#'+id+'", options);');
-	document.write('alert(embed.outerHTML);');
+	document.write('PDFObject.embed("'+url+'", "#'+id+'", options);');
 	document.write('</script>');
 };
