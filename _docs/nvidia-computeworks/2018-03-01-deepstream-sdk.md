@@ -43,7 +43,7 @@ sudo apt-get install cuda
 To uninstall the CUDA Toolkit, run the uninstall script in /usr/local/cuda-9.0/bin
 
 <br/>
-###### [cuDNN v7.0.4 for CUDA 9.0](https://developer.nvidia.com/rdp/cudnn-download)
+###### [cuDNN v7.0.4 for CUDA 9.0 Packages](https://developer.nvidia.com/rdp/cudnn-download)
 ```console
 tar -xzvf cudnn-9.0-linux-x64-v7.tgz
 sudo cp cuda/include/cudnn.h /usr/local/cuda/include 

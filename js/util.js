@@ -6,8 +6,7 @@ var embedPDF = function(pdf) {
 	id = 'embeded-pdf-container' + id;
 
 	document.write('<style>.pdfobject-container { width: '+width+'; height: '+height+' }</style>');
-	document.write('<div style="margin-bottom: 88px" id="'+id+'">');
-	//document.write('<p>PLEASE ALLOW YOUR BROWSER TO LOAD UNSAFE SCRIPTS IF YOU CANNOT SEE A PDF DOCUMENT.</p>');
+	document.write('<div style="margin-bottom: 75px" id="'+id+'">');
 	document.write('</div>');
 	document.write('<script src="../../js/pdfobject.min.js"></script>');
 	document.write('<script>');
