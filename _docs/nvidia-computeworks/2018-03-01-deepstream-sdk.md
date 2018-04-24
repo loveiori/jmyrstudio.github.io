@@ -52,10 +52,10 @@ sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
 ```
 
 <br/>
-###### [TensorRT 3.0.2 for Ubuntu 16.04 and CUDA 9.0 TAR packages](https://developer.nvidia.com/compute/machine-learning/tensorrt/3.0/ga/TensorRT-3.0.4.Ubuntu-16.04.3.x86_64.cuda-9.0.cudnn7.0-tar.gz) (Recommended)
+###### [TensorRT 3.0.2 for Ubuntu 16.04 and CUDA 9.0 TAR packages](https://developer.nvidia.com/nvidia-tensorrt-download) (Recommended)
 ```console
 tar xzvf TensorRT-3.0.2.Ubuntu-16.04.3.x86_64.cuda-9.0.cudnn7.0.tar.gz
-mv TensorRT-3.0.2 /usr/local
+sudo mv TensorRT-3.0.2 /usr/local
 ```
 
 <br/>
@@ -76,15 +76,44 @@ export CUDA=cuda-9.0
 export TENSORRT=/usr/local/TensorRT-3.0.2
 export PATH=/usr/local/${CUDA}/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/${CUDA}/lib64:${TENSORRT}/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+source ~/.bashrc
 ```
 
 <br/>
-###### DeepStream SDK Pre-Installation
+###### Python Installation
+```console
+sudo apt install python3-pip
+python3 -m pip install --upgrade pip
+
+cd ${TENSORRT}/python
+sudo python3 -m pip install tensorrt-3.0.2-cp35-cp35m-linux_x86_64.whl
+
+cd ${TENSORRT}/uff
+sudo python3 -m pip install uff-0.2.0-py2.py3-none-any.whl
+```
+
+```console
+Update the custom_plugins example to point to the location where the tar package was installed into. For example, in the <PYTHON_INSTALL_PATH>/tensorrt/examples/custom_layers/tensorrtplugins/setup.py file, change the following:
+
+- Change TENSORRT_INC_DIR to point to the <TAR_INSTALL_ROOT>/include directory.
+- Change TENSORRT_LIB_DIR to point to <TAR_INSTALL_ROOT>/lib directory.
+```
+
+<br/>
+###### Tensorflow Installation (Optional)
+```console
+sudo python3 -m pip install jupyter
+sudo python3 -m pip install tensorflow-gpu
+```
+
+<br/>
+###### [DeepStream SDK](https://developer.nvidia.com/deepstream-sdk-download) Pre-Installation
 ```console
 sudo apt-get update
 sudo apt-get install build-essential
 sudo apt-get install ffmpeg
-sudo apt get libxmu-dev
+sudo apt-get install libxmu-dev
 sudo apt-get install libgl1-mesa-dev
 sudo apt-get install libglu1-mesa-dev
 sudo apt-get install freeglut3-dev
@@ -101,7 +130,7 @@ sudo make install
 <br/>
 ###### Edit deepstream/makes/defines.inc
 ```console
-TENSORRT_INC_PATH = /usr/local/TensorRT-3.0.2/include
-TENSORRT_LIB_PATH = /usr/local/TensorRT-3.0.2/lib
+TENSORRT_INC_PATH = ${TENSORRT}/include
+TENSORRT_LIB_PATH = ${TENSORRT}/lib
 VIDEOSDK_INSTALL_PATH = /home/${username}/cuda-workspace/Video_Codec_SDK_8.0.14
 ```
